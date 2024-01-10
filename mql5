@@ -1,0 +1,139 @@
+
+//+------------------------------------------------------------------+
+//|                                                  BotGPT MT5.mq5 |
+//|                                Copyright 2022, Forex Robot Easy Team |
+//|                                       https://www.forexroboteasy.com |
+//+------------------------------------------------------------------+
+
+// Include necessary libraries
+#include <Trade\Trade.mqh>
+
+// Define global variables
+int signal = 0; // Trading signal
+
+//+------------------------------------------------------------------+
+//| Custom trade function to execute trades based on signal          |
+//+------------------------------------------------------------------+
+void ExecuteTrade()
+{
+   double lotSize = 0.1; // Initial lot size
+   double stopLoss = 50; // Stop loss level
+   double takeProfit = 100; // Take profit level
+   
+   // Check if there is an open position
+   if(!PositionSelect(Symbol()))
+   {
+      // Open a new position based on the signal
+      if(signal == 1)
+      {
+         // Buy order
+         if(OrderSend(Symbol(), OP_BUY, lotSize, Ask, 3, Bid - stopLoss * Point, Bid + takeProfit * Point))
+         {
+            Print('Buy order executed successfully');
+         }
+         else
+         {
+            Print('Failed to execute buy order: ', GetLastError());
+         }
+      }
+      else if(signal == -1)
+      {
+         // Sell order
+         if(OrderSend(Symbol(), OP_SELL, lotSize, Bid, 3, Ask + stopLoss * Point, Ask - takeProfit * Point))
+         {
+            Print('Sell order executed successfully');
+         }
+         else
+         {
+            Print('Failed to execute sell order: ', GetLastError());
+         }
+      }
+   }
+   else
+   {
+      Print('There is already an open position');
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Custom analysis function to analyze the forex market             |
+//+------------------------------------------------------------------+
+void AnalyzeMarket()
+{
+   // Add your market analysis logic here
+   // Set the trading signal based on the analysis
+   signal = 1; // Buy signal
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to gather and analyze forex market data          |
+//+------------------------------------------------------------------+
+void GatherAndAnalyzeData()
+{
+   // Add code to gather and analyze forex market data here
+   // Set the trading signal based on the analysis
+   signal = -1; // Sell signal
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to integrate Neuro FX EA with BotGPT MT5         |
+//+------------------------------------------------------------------+
+void IntegrateNeuroFXEA()
+{
+   // Add code to integrate Neuro FX EA with BotGPT MT5 here
+   // Enhance forex trading strategies by combining the two algorithms
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to enable users to select other EA for free      |
+//+------------------------------------------------------------------+
+void EnableFreeEASelection()
+{
+   // Add code to enable users to select other EA for free here
+   // Provide instructions for selecting the free EA
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to test the code thoroughly                      |
+//+------------------------------------------------------------------+
+void TestCode()
+{
+   // Add code to test the code thoroughly here
+   // Verify the efficiency and accuracy of forex trading
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to handle program initialization                 |
+//+------------------------------------------------------------------+
+void OnInit()
+{
+   // Add code to initialize the program here
+   // Call necessary functions to perform required tasks
+   AnalyzeMarket();
+   GatherAndAnalyzeData();
+   ExecuteTrade();
+   IntegrateNeuroFXEA();
+   EnableFreeEASelection();
+   TestCode();
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to handle program deinitialization               |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Add code to deinitialize the program here
+   // Handle program shutdown and clean up any resources
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to handle program start                          |
+//+------------------------------------------------------------------+
+void OnStart()
+{
+   // Add code to handle program start here
+   // Call necessary functions to perform required tasks
+   OnInit();
+}
+
+//+------------------------------------------------------------------+
